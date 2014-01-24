@@ -1,15 +1,24 @@
-/*global _li*/
+/*global _li, PIXI*/
 
 _li.define(
     'defender.renderer.texture',
-    function () {
+    function (addToCanvas) {
         'use strict';
 
         var init;
 
-        init = function () {
-        };
+        init = function (options) {
+			var texture = PIXI.Texture.fromImage(options.assets),
+				sprite = new PIXI.Sprite(texture);
+
+			addToCanvas.call(sprite, options.container);
+
+			return sprite;
+		};
 
         this.on(init);
-    }
+    },
+	[
+		'defender.renderer.addToCanvas'
+	]
 );
