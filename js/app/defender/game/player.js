@@ -2,14 +2,26 @@
 
 _li.define(
     'defender.game.player',
-    function () {
+    function (spine) {
         'use strict';
 
-        var init;
+        var init,
+            player,
+            options;
+
+        options = {
+
+        };
 
         init = function () {
+            if (!player) {
+                player = spine.call(options);
+            }
+
+            return player;
         };
 
         this.on(init);
-    }
+    },
+    'defender.renderer.spine'
 );
