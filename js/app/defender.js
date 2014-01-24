@@ -2,14 +2,18 @@
 
 _li.define(
     'defender',
-    function () {
+    function (assets) {
         'use strict';
 
         var init;
 
         init = function () {
+            assets.call();
         };
 
         this.on(init);
-    }
+    },
+    [
+        'defender.assets'
+    ]
 );
