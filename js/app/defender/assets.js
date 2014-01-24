@@ -12,6 +12,9 @@ _li.define(
             // bunny
             'assets/images/bunny.png',
 
+            // planet
+            'assets/images/planet.png',
+
             // spineboy
             'assets/spine/spineboy/spineboy.atlas',
             'assets/spine/spineboy/spineboy.json',
