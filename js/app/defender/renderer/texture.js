@@ -8,7 +8,7 @@ _li.define(
         var init;
 
         init = function (options) {
-			var texture = PIXI.Texture.fromImage(options.assets),
+			var texture = PIXI.Texture.fromImage(options.asset),
 				sprite = new PIXI.Sprite(texture);
 
 			addToCanvas.call(sprite, options.container);

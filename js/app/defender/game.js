@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer) {
+    function (renderer, planet) {
         'use strict';
 
         var init,
@@ -11,17 +11,21 @@ _li.define(
 
         init = function () {
 			rendererInstance = renderer.call();
+			planet.call();
 
             requestAnimationFrame(loop);
         };
 
         loop = function () {
             requestAnimationFrame(loop);
+
+			rendererInstance.renderer.render(rendererInstance.stage);
         };
 
         this.on(init);
     },
 	[
-		'defender.renderer'
+		'defender.renderer',
+		'defender.game.planet'
 	]
 );
