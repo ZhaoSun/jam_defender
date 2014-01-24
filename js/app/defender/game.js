@@ -2,13 +2,16 @@
 
 _li.define(
     'defender.game',
-    function () {
+    function (renderer) {
         'use strict';
 
         var init,
-            loop;
+            loop,
+			rendererInstance;
 
         init = function () {
+			rendererInstance = renderer.call();
+
             requestAnimationFrame(loop);
         };
 
@@ -17,5 +20,8 @@ _li.define(
         };
 
         this.on(init);
-    }
+    },
+	[
+		'defender.renderer'
+	]
 );
