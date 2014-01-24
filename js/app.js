@@ -2,7 +2,16 @@
 
 var ejecta = ejecta || null,
     app = [
-        'defender'
+        'defender',
+        'defender.assets',
+        'defender.renderer',
+        'defender.game',
+        'defender.game.loop',
+        'defender.game.player',
+        'defender.game.enemies',
+        'defender.game.planet',
+        'defender.game.weapon',
+        'defender.game.space'
     ],
     init = {
         event: 'defender'
@@ -11,7 +20,7 @@ var ejecta = ejecta || null,
     baseURL = '/defender/js/app/';
 
 if (ejecta) {
-   loader = 'ejecta';
+    loader = 'ejecta';
 }
 
 _li.core.init(app, init, baseURL, loader);
