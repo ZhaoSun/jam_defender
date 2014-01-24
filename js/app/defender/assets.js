@@ -9,7 +9,13 @@ _li.define(
             assets;
 
         assets = [
-            'assets/images/bunny.png'
+            // bunny
+            'assets/images/bunny.png',
+            
+            // spineboy
+            'assets/spine/spineboy/spineboy.atlas',
+            'assets/spine/spineboy/spineboy.json',
+            'assets/spine/spineboy/spineboy.png'
         ];
 
         init = function () {
