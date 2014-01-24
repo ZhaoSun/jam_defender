@@ -1,7 +1,7 @@
 /*global _li*/
 
 _li.define(
-    'defender.renderer',
+    'defender.renderer.texture',
     function () {
         'use strict';
 

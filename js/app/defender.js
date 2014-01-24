@@ -1,10 +1,13 @@
+/*global _li*/
+
 _li.define(
     'defender',
-    function (game) {
+    function () {
+        'use strict';
+
         var init;
 
         init = function () {
-            console.log('Defender is here! ;]');
         };
 
         this.on(init);
