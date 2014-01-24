@@ -16,7 +16,7 @@ var ejecta = ejecta || null,
         event: 'defender'
     },
     loader = 'browser',
-    baseURL = '/defender/js/app/';
+    baseURL = '/jam_defender/js/app/';
 
 if (ejecta) {
     loader = 'ejecta';

@@ -11,7 +11,7 @@ _li.define(
         assets = [
             // bunny
             'assets/images/bunny.png',
-            
+
             // spineboy
             'assets/spine/spineboy/spineboy.atlas',
             'assets/spine/spineboy/spineboy.json',
