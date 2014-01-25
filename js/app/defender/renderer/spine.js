@@ -17,13 +17,18 @@ _li.define(
                 }
             );
 
-			spine.scale.x = 0.3;
-			spine.scale.y = 0.3;
-			spine.position.x = options.x;
-			spine.position.y = options.y;
+            if (options.scale) {
+                spine.scale.x = options.scale.x;
+                spine.scale.y = options.scale.y;
+            }
 
-			spine.stateData.setMixByName('walk', 'jump', 0.2);
-			spine.stateData.setMixByName('jump', 'walk', 0.4);
+            spine.position.x = options.x;
+            spine.position.y = options.y;
+
+            if (options.animation) {
+                options.animation.bind(spine)();
+            }
+
 
             return spine;
         };
