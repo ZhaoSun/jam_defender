@@ -15,7 +15,7 @@ _li.define(
         options = {
             asset: 'assets/spine/spineboy/spineboy.json',
             x: window.innerWidth / 2,
-            y: window.innerHeight - 350,
+            y: window.innerHeight - 150,
             animation: function () {
                 this.stateData.setMixByName('walk', 'jump', 0.2);
                 this.stateData.setMixByName('jump', 'walk', 0.4);

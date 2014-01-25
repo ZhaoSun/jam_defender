@@ -17,9 +17,9 @@ _li.define(
             _player,
             _enemies = [],
             _renderer,
-			_weapons = [],
-			checkWeapons,
-			weaponVelocity = 4;
+            _weapons = [],
+            checkWeapons,
+            weaponVelocity = 20;
 
         init = function () {
             _planet = planet.call();
@@ -47,26 +47,26 @@ _li.define(
                     activeShield = newShield;
                 }
             });
-			checkWeapons();
+            checkWeapons();
 
             _camera.rotation += _camera.velocity;
             _renderer.renderer.render(_renderer.stage);
         };
 
-		checkWeapons = function () {
-			_weapons = weapon.call(true);
-			_weapons.forEach(function (weapon, i) {
-				weapon.fire(weaponVelocity, i);
-			});
-		};
+        checkWeapons = function () {
+            _weapons = weapon.call(true);
+            _weapons.forEach(function (weapon, i) {
+                weapon.fire(weaponVelocity, i);
+            });
+        };
 
         createEnemies = function () {
-            for (var i = 0; i < 4; i += 1) {
+            for (var i = 0; i < 1; i += 1) {
                 _enemies = enemies.call({
                     number: 1,
                     action: 'add',
-                    distance: 300 + Math.random() * 500,
-                    rotation: Math.random() * 2 * Math.PI
+                    distance: window.innerHeight / 2 + Math.random() * 400,
+                    rotation: 0
                 });
             }
         };
@@ -80,6 +80,6 @@ _li.define(
         'defender.game.enemies',
         'defender.game.camera',
         'defender.game.shield',
-		'defender.game.weapon'
+        'defender.game.weapon'
     ]
 );

@@ -11,7 +11,7 @@ _li.define(
         init = function () {
             var options = {
                 x: window.innerWidth / 2,
-                y: window.innerHeight + 50
+                y: window.innerHeight + 250
             };
             if (!camera) {
                 camera = container.call(options);
