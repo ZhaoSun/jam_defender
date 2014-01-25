@@ -7,7 +7,7 @@ _li.define(
 
         var init,
             loop,
-            velocity = 1,
+            velocity = 0.5,
             createEnemies,
             activeShield = 0,
             newShield = 0,
