@@ -7,11 +7,11 @@ _li.define(
 
         var init,
             loop,
-			rendererInstance;
+            rendererInstance;
 
         init = function () {
-			rendererInstance = renderer.call();
-			planet.call();
+            rendererInstance = renderer.call();
+            planet.call();
 
             requestAnimationFrame(loop);
         };
@@ -19,13 +19,13 @@ _li.define(
         loop = function () {
             requestAnimationFrame(loop);
 
-			rendererInstance.renderer.render(rendererInstance.stage);
+            rendererInstance.renderer.render(rendererInstance.stage);
         };
 
         this.on(init);
     },
-	[
-		'defender.renderer',
-		'defender.game.planet'
-	]
+    [
+        'defender.renderer',
+        'defender.game.planet'
+    ]
 );

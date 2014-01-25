@@ -7,14 +7,15 @@ var ejecta = ejecta || null,
         'defender.renderer',
         'defender.renderer.addToCanvas',
         'defender.renderer.container',
-		'defender.renderer.texture',
-		'defender.renderer.spine',
+        'defender.renderer.texture',
+        'defender.renderer.spine',
         'defender.game',
         'defender.game.player',
         'defender.game.enemies',
         'defender.game.planet',
         'defender.game.weapon',
-        'defender.game.space'
+        'defender.game.space',
+        'defender.game.camera'
     ],
     init = {
         event: 'defender'
