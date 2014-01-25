@@ -2,19 +2,20 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player) {
+    function (renderer, planet, player, keyboard) {
         'use strict';
 
         var init,
             loop,
-            camera,
-            character,
-            rendererInstance;
+			_planet,
+            _player,
+            _renderer;
 
         init = function () {
-            rendererInstance = renderer.call();
-            camera = planet.call();
-            character = player.call();
+            _renderer = renderer.call();
+            _planet = planet.call();
+            _player = player.call();
+			keyboard.call();
 
             requestAnimationFrame(loop);
         };
@@ -22,8 +23,8 @@ _li.define(
         loop = function () {
             requestAnimationFrame(loop);
 
-            camera.rotation += 0.01;
-            rendererInstance.renderer.render(rendererInstance.stage);
+			_planet.rotation += 0.01;
+            _renderer.renderer.render(_renderer.stage);
         };
 
         this.on(init);
@@ -31,6 +32,7 @@ _li.define(
     [
         'defender.renderer',
         'defender.game.planet',
-        'defender.game.player'
+        'defender.game.player',
+		'defender.input.keyboard'
     ]
 );
