@@ -13,7 +13,7 @@ _li.define(
                 radius: 800,
                 container: camera.call(),
                 x: 0,
-                y: 250,
+                y: 0,
                 asset: 'assets/images/planet.png'
             };
 

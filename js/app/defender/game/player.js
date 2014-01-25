@@ -8,9 +8,9 @@ _li.define(
         var init,
             _player,
             options,
-			walkLeft,
-			walkRight,
-			clearAnimation;
+            walkLeft,
+            walkRight,
+            clearAnimation;
 
         options = {
             asset: 'assets/spine/spineboy/spineboy.json',
@@ -28,27 +28,27 @@ _li.define(
 
         init = function () {
             if (!_player) {
-				_player = spine.call(options);
-				_player.walkLeft = walkLeft.bind(_player);
-				_player.walkRight = walkRight.bind(_player);
-				_player.clearAnimation = clearAnimation.bind(_player);
+                _player = spine.call(options);
+                _player.walkLeft = walkLeft.bind(_player);
+                _player.walkRight = walkRight.bind(_player);
+                _player.clearAnimation = clearAnimation.bind(_player);
             }
             return _player;
         };
 
-		walkLeft = function () {
-			this.scale.x = -0.3;
-			this.state.setAnimationByName('walk', true);
-		};
+        walkLeft = function () {
+            this.scale.x = -0.2;
+            this.state.setAnimationByName('walk', true);
+        };
 
-		walkRight = function () {
-			this.scale.x = 0.3;
-			this.state.setAnimationByName('walk', true);
-		};
+        walkRight = function () {
+            this.scale.x = 0.2;
+            this.state.setAnimationByName('walk', true);
+        };
 
-		clearAnimation = function () {
-			this.state.clearAnimation();
-		};
+        clearAnimation = function () {
+            this.state.clearAnimation();
+        };
 
         this.on(init);
     },

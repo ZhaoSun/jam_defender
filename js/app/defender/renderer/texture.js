@@ -14,8 +14,17 @@ _li.define(
             sprite.position.x = options.x;
             sprite.position.y = options.y;
 
+
             sprite.anchor.x = 0.5;
             sprite.anchor.y = 0.5;
+
+
+            if (options.relative) {
+                sprite.position.x = 0;
+                sprite.pivot.y = options.radius + options.x;
+
+                sprite.rotation = options.rotation;
+            }
 
             addToCanvas.call(
                 {

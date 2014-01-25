@@ -11,10 +11,11 @@ _li.define(
         init = function () {
             var options = {
                 x: window.innerWidth / 2,
-                y: window.innerHeight
+                y: window.innerHeight + 250
             };
             if (!camera) {
                 camera = container.call(options);
+                camera.velocity = 0;
             }
             return camera;
         };

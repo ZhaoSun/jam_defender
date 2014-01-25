@@ -2,29 +2,50 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, keyboard) {
+    function (renderer, planet, player, enemies, camera, keyboard) {
         'use strict';
 
         var init,
             loop,
-			_planet,
+            velocity = 1,
+            createEnemies,
+            _camera,
             _player,
+            _enemies = [],
             _renderer;
 
         init = function () {
+            planet.call();
+            keyboard.call();
+
             _renderer = renderer.call();
-            _planet = planet.call();
+            _camera = camera.call();
             _player = player.call();
-			keyboard.call();
+
+            createEnemies();
 
             requestAnimationFrame(loop);
         };
 
         loop = function () {
             requestAnimationFrame(loop);
+            _enemies.forEach(function (enemy) {
+                enemy.fall(velocity);
+            });
 
-			_planet.rotation += 0.01;
+            _camera.rotation += _camera.velocity;
             _renderer.renderer.render(_renderer.stage);
+        };
+
+        createEnemies = function () {
+            for (var i = 0; i < 100; i += 1) {
+                _enemies = enemies.call({
+                    number: 1,
+                    action: 'add',
+                    distance: 300 + Math.random() * 500,
+                    rotation: Math.random() * 2 * Math.PI
+                });
+            }
         };
 
         this.on(init);
@@ -33,6 +54,8 @@ _li.define(
         'defender.renderer',
         'defender.game.planet',
         'defender.game.player',
-		'defender.input.keyboard'
+        'defender.game.enemies',
+        'defender.game.camera',
+        'defender.input.keyboard'
     ]
 );
