@@ -10,7 +10,7 @@ _li.define(
             options;
 
         options = {
-
+			asset: 'assets/spine/spineboy/spineboy.json'
         };
 
         init = function () {
