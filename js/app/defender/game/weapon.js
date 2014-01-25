@@ -15,7 +15,8 @@ _li.define(
             x: 80,
             y: 0,
             radius: 400,
-            relative: true
+            relative: true,
+            at: 1
         };
 
         init = function (getWeapons) {
