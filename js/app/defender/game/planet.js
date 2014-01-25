@@ -10,10 +10,10 @@ _li.define(
 
         init = function () {
             var options = {
-                radius: 300,
+                radius: 800,
                 container: camera.call(),
-                x: -400,
-                y: -400,
+                x: 0,
+                y: 250,
                 asset: 'assets/images/planet.png'
             };
 

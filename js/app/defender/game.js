@@ -7,11 +7,12 @@ _li.define(
 
         var init,
             loop,
+            camera,
             rendererInstance;
 
         init = function () {
             rendererInstance = renderer.call();
-            planet.call();
+            camera = planet.call();
 
             requestAnimationFrame(loop);
         };
@@ -19,6 +20,7 @@ _li.define(
         loop = function () {
             requestAnimationFrame(loop);
 
+            camera.rotation += 0.01;
             rendererInstance.renderer.render(rendererInstance.stage);
         };
 

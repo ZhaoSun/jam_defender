@@ -10,7 +10,12 @@ _li.define(
         init = function (options) {
             var spine = new PIXI.Spine(options.asset);
 
-            addToCanvas.call(spine);
+            addToCanvas.call(
+                {
+                    object: spine,
+                    container: options.container
+                }
+            );
 
 			spine.scale.x = 0.3;
 			spine.scale.y = 0.3;

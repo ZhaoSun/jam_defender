@@ -10,14 +10,12 @@ _li.define(
 
         init = function () {
             var options = {
-                x: window.innerWidth,
+                x: window.innerWidth / 2,
                 y: window.innerHeight
             };
-
             if (!camera) {
                 camera = container.call(options);
             }
-
             return camera;
         };
 

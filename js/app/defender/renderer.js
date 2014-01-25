@@ -17,7 +17,7 @@ _li.define(
             if (!stage) {
                 canvas = document.getElementById('canvas');
                 renderer = PIXI.autoDetectRenderer(width, height, canvas, false, true);
-                stage = new PIXI.Stage(0xFFFFFF);
+                stage = new PIXI.Stage(0x000000);
             }
 
             return {

@@ -6,9 +6,13 @@ _li.define(
         'use strict';
 
         var init,
-            rendererInstance = renderer.call();
+            rendererInstance;
 
-        init = function (object, container) {
+        init = function (options) {
+            var container = options.container,
+                object = options.object;
+
+            rendererInstance = renderer.call();
             if (container) {
                 container.addChild(object);
             } else {

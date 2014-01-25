@@ -8,17 +8,28 @@ _li.define(
         var init;
 
         init = function (options) {
-			var texture = PIXI.Texture.fromImage(options.asset),
-				sprite = new PIXI.Sprite(texture);
+            var texture = PIXI.Texture.fromImage(options.asset),
+                sprite = new PIXI.Sprite(texture);
 
-			addToCanvas.call(sprite, options.container);
+            sprite.position.x = options.x;
+            sprite.position.y = options.y;
 
-			return sprite;
-		};
+            sprite.anchor.x = 0.5;
+            sprite.anchor.y = 0.5;
+
+            addToCanvas.call(
+                {
+                    object: sprite,
+                    container: options.container
+                }
+            );
+
+            return sprite;
+        };
 
         this.on(init);
     },
-	[
-		'defender.renderer.addToCanvas'
-	]
+    [
+        'defender.renderer.addToCanvas'
+    ]
 );

@@ -14,7 +14,12 @@ _li.define(
             container.position.x = options.x;
             container.position.y = options.y;
 
-            addToCanvas.call(container, options.container);
+            addToCanvas.call(
+                {
+                    object: container,
+                    container: options.container
+                }
+            );
 
             return container;
         };
