@@ -40,7 +40,7 @@ _li.define(
             }
         };
 
-        fall = function (velocity, planet, shield, activeShield, index) {
+        fall = function (velocity, planet, shield, activeShield, weapons, index) {
             var radius = null,
                 gameOver = false;
 
@@ -52,6 +52,20 @@ _li.define(
             }
             this.position.y += velocity * Math.cos(this.rotation);
             this.position.x -= velocity * Math.sin(this.rotation);
+
+            weapons.forEach(function (bullet, bIndex) {
+                var bulletRotation = Math.sin(bullet.rotation),
+                    enemyRotation = Math.sin(this.rotation);
+
+                if ((bulletRotation > enemyRotation * 0.95 && bulletRotation < enemyRotation / 0.95) || (bulletRotation < enemyRotation * 0.95 && bulletRotation > enemyRotation / 0.95)) {
+                    if (Math.abs(Math.sqrt(bullet.position.y * bullet.position.y + bullet.position.x * bullet.position.x)) >= Math.abs(Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) - planet.radius)) {
+                        planet.parent.removeChild(bullet);
+                        planet.parent.removeChild(this);
+                        enemies.splice(index, 1);
+                        weapons.splice(bIndex, 1);
+                    }
+                }
+            }.bind(this));
 
             if (this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) < radius + this.height / 2) {
                 if (gameOver) {
