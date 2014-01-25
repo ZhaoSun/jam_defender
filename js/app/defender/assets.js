@@ -15,6 +15,9 @@ _li.define(
             // planet
             'assets/images/planet.png',
 
+			// bullet
+			'assets/images/bullet.png',
+
             // spineboy
             'assets/spine/spineboy/spineboy.atlas',
             'assets/spine/spineboy/spineboy.json',

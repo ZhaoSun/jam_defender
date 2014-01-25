@@ -2,7 +2,7 @@
 
 _li.define(
 	'defender.input.keyboard',
-	function (input) {
+	function (input, weapon) {
 		'use strict';
 
 		var init,
@@ -13,6 +13,10 @@ _li.define(
 
 			window.addEventListener('keydown', function (e) {
 				var key = e.keyCode;
+
+				if (key === 32) {
+					weapon.call();
+				}
 
 				if (key === 37) {
 					if (!_animating) {
@@ -27,13 +31,18 @@ _li.define(
 						input.call('walkRight');
 						_animating = true;
 					}
-
 				}
+
+
 			}, false);
 
 			window.addEventListener('keyup', function (e) {
-				_animating = false;
-				input.call('clearAnimation');
+				var key = e.keyCode;
+
+				if ((key === 37) || (key === 39)) {
+					_animating = false;
+					input.call('clearAnimation');
+				}
 			}, false);
 
 		};
@@ -41,6 +50,7 @@ _li.define(
 		this.on(init);
 	},
 	[
-		'defender.input'
+		'defender.input',
+		'defender.game.weapon'
 	]
 );

@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, keyboard, shield) {
+    function (renderer, planet, player, enemies, camera, keyboard, shield, weapon) {
         'use strict';
 
         var init,
@@ -16,7 +16,10 @@ _li.define(
             _planet,
             _player,
             _enemies = [],
-            _renderer;
+            _renderer,
+			_weapons = [],
+			checkWeapons,
+			weaponVelocity = 4;
 
         init = function () {
             keyboard.call();
@@ -46,10 +49,18 @@ _li.define(
                     activeShield = newShield;
                 }
             });
+			checkWeapons();
 
             _camera.rotation += _camera.velocity;
             _renderer.renderer.render(_renderer.stage);
         };
+
+		checkWeapons = function () {
+			_weapons = weapon.call(true);
+			_weapons.forEach(function (weapon, i) {
+				weapon.fire(weaponVelocity, i);
+			});
+		};
 
         createEnemies = function () {
             for (var i = 0; i < 4; i += 1) {
@@ -71,6 +82,7 @@ _li.define(
         'defender.game.enemies',
         'defender.game.camera',
         'defender.input.keyboard',
-        'defender.game.shield'
+        'defender.game.shield',
+		'defender.game.weapon'
     ]
 );
