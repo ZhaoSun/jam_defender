@@ -18,7 +18,9 @@ var ejecta = ejecta || null,
         'defender.game.camera',
         'defender.game.shield',
         'defender.input',
-		'defender.input.keyboard'
+		'defender.input.keyboard',
+		'defender.intro',
+		'defender.finish'
     ],
     init = {
         event: 'defender'

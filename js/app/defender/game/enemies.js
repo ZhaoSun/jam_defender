@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game.enemies',
-    function (texture, camera) {
+    function (texture, camera, finish) {
         'use strict';
 
         var init,
@@ -69,8 +69,7 @@ _li.define(
 
             if (this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) < radius + this.height / 2) {
                 if (gameOver) {
-                    //TODO: destroy planet & end game
-                    console.log('game over');
+					finish.call();
                 }
 
                 planet.parent.removeChild(this);
@@ -86,6 +85,7 @@ _li.define(
     },
     [
         'defender.renderer.texture',
-        'defender.game.camera'
+        'defender.game.camera',
+		'defender.finish'
     ]
 );

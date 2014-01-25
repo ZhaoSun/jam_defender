@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.assets',
-    function (game) {
+    function (intro) {
         'use strict';
 
         var init,
@@ -27,13 +27,13 @@ _li.define(
         init = function () {
             var loader = new PIXI.AssetLoader(assets, false);
 
-            loader.onComplete = game.call;
+            loader.onComplete = intro.call;
             loader.load();
         };
 
         this.on(init);
     },
     [
-        'defender.game'
+        'defender.intro'
     ]
 );
