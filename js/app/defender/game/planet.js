@@ -10,7 +10,7 @@ _li.define(
 
         init = function () {
             var options = {
-                radius: 800,
+                radius: 400,
                 container: camera.call(),
                 x: 0,
                 y: 0,

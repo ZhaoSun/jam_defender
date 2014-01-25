@@ -10,14 +10,15 @@ _li.define(
             velocity = 1,
             createEnemies,
             _camera,
+            _planet,
             _player,
             _enemies = [],
             _renderer;
 
         init = function () {
-            planet.call();
             keyboard.call();
 
+            _planet = planet.call();
             _renderer = renderer.call();
             _camera = camera.call();
             _player = player.call();
@@ -29,8 +30,8 @@ _li.define(
 
         loop = function () {
             requestAnimationFrame(loop);
-            _enemies.forEach(function (enemy) {
-                enemy.fall(velocity);
+            _enemies.forEach(function (enemy, i) {
+                enemy.fall(velocity, _planet, i);
             });
 
             _camera.rotation += _camera.velocity;
