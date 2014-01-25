@@ -10,11 +10,16 @@ _li.define(
 
         init = function (options) {
             var container = options.container,
-                object = options.object;
+                object = options.object,
+                at = options.at;
 
             rendererInstance = renderer.call();
             if (container) {
-                container.addChild(object);
+                if (!isNaN(at)) {
+                    container.addChildAt(object, at);
+                } else {
+                    container.addChild(object);
+                }
             } else {
                 rendererInstance.stage.addChild(object);
             }

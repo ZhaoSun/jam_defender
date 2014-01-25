@@ -2,13 +2,16 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, keyboard) {
+    function (renderer, planet, player, enemies, camera, keyboard, shield) {
         'use strict';
 
         var init,
             loop,
             velocity = 1,
             createEnemies,
+            activeShield = 0,
+            newShield = 0,
+            _shield,
             _camera,
             _planet,
             _player,
@@ -22,7 +25,8 @@ _li.define(
             _renderer = renderer.call();
             _camera = camera.call();
             _player = player.call();
-
+            _shield = shield.call();
+            _shield[activeShield].render();
             createEnemies();
 
             requestAnimationFrame(loop);
@@ -31,7 +35,16 @@ _li.define(
         loop = function () {
             requestAnimationFrame(loop);
             _enemies.forEach(function (enemy, i) {
-                enemy.fall(velocity, _planet, i);
+                newShield = enemy.fall(velocity, _planet, _shield, activeShield, i);
+                if (newShield !== activeShield) {
+                    if (_shield[activeShield]) {
+                        _shield[activeShield].parent.removeChild(_shield[activeShield]);
+                    }
+                    if (_shield[newShield]) {
+                        _shield[newShield].render();
+                    }
+                    activeShield = newShield;
+                }
             });
 
             _camera.rotation += _camera.velocity;
@@ -39,7 +52,7 @@ _li.define(
         };
 
         createEnemies = function () {
-            for (var i = 0; i < 100; i += 1) {
+            for (var i = 0; i < 4; i += 1) {
                 _enemies = enemies.call({
                     number: 1,
                     action: 'add',
@@ -57,6 +70,7 @@ _li.define(
         'defender.game.player',
         'defender.game.enemies',
         'defender.game.camera',
-        'defender.input.keyboard'
+        'defender.input.keyboard',
+        'defender.game.shield'
     ]
 );

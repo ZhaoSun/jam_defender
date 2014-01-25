@@ -27,12 +27,26 @@ _li.define(
                 sprite.rotation = options.rotation;
             }
 
-            addToCanvas.call(
-                {
-                    object: sprite,
-                    container: options.container
-                }
-            );
+
+            if (!options.disabled) {
+                addToCanvas.call(
+                    {
+                        object: sprite,
+                        container: options.container,
+                        at: options.at
+                    }
+                );
+            } else {
+                sprite.render = function () {
+                    addToCanvas.call(
+                        {
+                            object: sprite,
+                            container: options.container,
+                            at: options.at
+                        }
+                    );
+                };
+            }
 
             return sprite;
         };
