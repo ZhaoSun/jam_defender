@@ -7,23 +7,17 @@ _li.define(
 
         var init,
             _animating,
-            touchStart,
             touchPositionX,
-            touchPositionY,
             gameStarted = false;
 
 
         init = function () {
 
+            window.setInterval(function () {
+                weapon.call();
+            }, 300);
+
             window.addEventListener('touchstart', function (e) {
-                touchStart = +new Date();
-
-
-                e.preventDefault();
-
-            });
-
-            window.addEventListener('touchmove', function (e) {
                 touchPositionX = e.touches[0].clientX;
                 if (gameStarted) {
 
@@ -39,6 +33,13 @@ _li.define(
                         }
                     }
                 }
+
+                e.preventDefault();
+
+            });
+
+            window.addEventListener('touchmove', function (e) {
+
                 e.preventDefault();
             });
 
@@ -47,10 +48,6 @@ _li.define(
                     game.call();
                     gameStarted = true;
                 } else {
-                    if (+new Date() - touchStart < 200) {
-                        weapon.call();
-                    }
-
                     _animating = false;
                     input.call('clearAnimation');
                 }
