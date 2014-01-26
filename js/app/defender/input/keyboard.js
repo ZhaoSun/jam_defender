@@ -19,7 +19,7 @@ _li.define(
                 if (key === 13 && !gameStarted) {
                     game.call();
                     gameStarted = true;
-                } else {
+                } else if (gameStarted) {
 
                     if (key === 32) {
                         if (date > lastFire + 750) {

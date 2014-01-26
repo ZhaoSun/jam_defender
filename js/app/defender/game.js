@@ -7,7 +7,6 @@ _li.define(
 
         var init,
             loop,
-            velocity = 1,
             createEnemies,
             activeShield = 0,
             newShield = 0,
@@ -19,7 +18,7 @@ _li.define(
             _renderer,
             _weapons = [],
             checkWeapons,
-            weaponVelocity = 20;
+            weaponVelocity = 15;
 
         init = function () {
             _planet = planet.call();
@@ -37,7 +36,7 @@ _li.define(
         loop = function () {
             requestAnimationFrame(loop);
             _enemies.forEach(function (enemy, i) {
-                newShield = enemy.fall(velocity, _planet, _shield, activeShield, _weapons, i);
+                newShield = enemy.fall(_planet, _shield, activeShield, _weapons, i);
                 if (newShield !== activeShield) {
                     if (_shield[activeShield]) {
                         _shield[activeShield].parent.removeChild(_shield[activeShield]);
@@ -67,7 +66,8 @@ _li.define(
                     number: 1,
                     action: 'add',
                     distance: window.innerHeight / 2 + Math.random() * 400,
-                    rotation: 0
+                    rotation: 0,
+                    type: 'default'
                 });
             }
         };

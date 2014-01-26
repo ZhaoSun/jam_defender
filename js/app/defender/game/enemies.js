@@ -11,11 +11,13 @@ _li.define(
             _enemies = [],
             multiplier = 1,
             hitsToScale = 10,
+            currentHits = 0,
             options = {
                 y: 0,
-                asset: 'assets/images/bunny.png',
+                asset: 'assets/images/rock.png',
                 relative: true,
-                radius: 400
+                radius: 400,
+                type: 'default'
             };
 
         init = function (data) {
@@ -33,18 +35,28 @@ _li.define(
                 var number = data.number,
                     i = 0;
 
+                if (data.type === 'bomb') {
+                    options.asset = 'assets/images/bomb.png';
+                } else {
+                    options.asset = 'assets/images/rock.png';
+
+                }
+
                 for (i; i < number; i += 1) {
                     var enemy = texture.call(options);
 
+                    enemy.type = data.type;
                     enemy.fall = fall.bind(enemy);
+                    enemy.velocity = 0.5;
                     _enemies.push(enemy);
                 }
             }
         };
 
-        fall = function (velocity, planet, shield, activeShield, weapons, index) {
+        fall = function (planet, shield, activeShield, weapons, index) {
             var radius = null,
-                gameOver = false;
+                gameOver = false,
+                type;
 
             if (shield[activeShield]) {
                 radius = shield[activeShield].radius;
@@ -52,31 +64,67 @@ _li.define(
                 gameOver = true;
                 radius = planet.radius;
             }
-            this.position.y += velocity * Math.cos(this.rotation);
-            this.position.x -= velocity * Math.sin(this.rotation);
+            this.position.y += this.velocity * Math.cos(this.rotation);
+            this.position.x -= this.velocity * Math.sin(this.rotation);
+            this.velocity *= 1.008 - (0.003 * this.rotation) / Math.PI;
 
             weapons.forEach(function (bullet, bIndex) {
                 var bulletRotation = Math.sin(bullet.rotation),
-                    enemyRotation = Math.sin(this.rotation);
+                    enemyRotation = Math.sin(this.rotation),
+                    number = 1;
+
                 if ((bulletRotation > enemyRotation - 0.05 && bulletRotation < enemyRotation + 0.05) || (bulletRotation < enemyRotation + 0.05 && bulletRotation > enemyRotation - 0.05)) {
                     var bulletDistance = Math.abs(Math.sqrt(bullet.position.y * bullet.position.y + bullet.position.x * bullet.position.x)),
                         enemyDistance = this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x),
                         bulletDistanceFromCenter = bulletDistance + planet.radius + this.height;
                     if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -this.height * 1.5) {
+
                         planet.parent.removeChild(bullet);
                         planet.parent.removeChild(this);
 						points.call();
                         _enemies.splice(index, 1);
                         weapons.splice(bIndex, 1);
-                        for (var i = 0; i < Math.floor(multiplier); i += 1) {
-                            _enemies = self.call({
+
+                        if (this.type === 'bomb') {
+                            _enemies.forEach(function (enemy, index) {
+                                planet.parent.removeChild(enemy);
+                                _enemies.splice(index, 1);
+                            });
+                            _enemies.forEach(function (enemy, index) {
+                                planet.parent.removeChild(enemy);
+                                _enemies.splice(index, 1);
+                            });
+
+
+                            number += 2;
+                        } else {
+                            currentHits += 1;
+                        }
+
+                        if (currentHits === Math.ceil(hitsToScale)) {
+                            currentHits = 0;
+                            hitsToScale -= -0.5;
+                            number += 1;
+                        }
+
+                        if (this.type !== 'bomb' && Math.random() - 0.3 * multiplier / 20 > 0.6) {
+                            type = 'bomb';
+                        } else {
+                            type = 'default';
+                        }
+                        for (var i = 0; i < number; i += 1) {
+                            if (i > 0) {
+                                type = 'default';
+                            }
+                            self.call({
                                 number: 1,
                                 action: 'add',
-                                distance: window.innerHeight / 2 + Math.random() * 200,
-                                rotation: Math.random() * ((Math.PI / 8) * multiplier) - ((Math.PI / 8) * multiplier / 2)
+                                distance: window.innerHeight / 2 + 200,
+                                rotation: Math.random() * ((Math.PI / 16) * multiplier) - ((Math.PI / 16) * multiplier / 2),
+                                type: type
                             });
                         }
-                        multiplier += 0.05;
+                        multiplier += 0.1;
                     }
                 }
             }.bind(this));
@@ -86,8 +134,17 @@ _li.define(
                     finish.call();
                 }
 
-                planet.parent.removeChild(this);
-                _enemies.splice(index, 1);
+                if (this.parent) {
+                    planet.parent.removeChild(this);
+                    _enemies.splice(index, 1);
+                    self.call({
+                        number: 1,
+                        action: 'add',
+                        distance: window.innerHeight / 2 + 200,
+                        rotation: Math.random() * ((Math.PI / 16) * multiplier) - ((Math.PI / 16) * multiplier / 2),
+                        type: 'bomb'
+                    });
+                }
 
                 return activeShield + 1;
             }

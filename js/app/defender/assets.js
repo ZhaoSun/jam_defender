@@ -9,8 +9,9 @@ _li.define(
             assets;
 
         assets = [
-            // bunny
-            'assets/images/bunny.png',
+            // rocks
+            'assets/images/rock.png',
+            'assets/images/bomb.png',
 
             // planet
             'assets/images/planet.png',
