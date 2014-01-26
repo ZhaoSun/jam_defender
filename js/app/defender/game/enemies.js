@@ -89,7 +89,7 @@ _li.define(
 
                         planet.parent.removeChild(bullet);
                         planet.parent.removeChild(this);
-                        points.call();
+                        points.call({reset: false, color: activeShield, points: true});
                         _enemies.splice(index, 1);
                         weapons.splice(bIndex, 1);
 

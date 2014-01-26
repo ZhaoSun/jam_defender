@@ -34,7 +34,7 @@ _li.define(
             _shield = shield.call();
             _shield[activeShield].render();
             createEnemies();
-            points.call(true);
+			points.call({reset: true, color: activeShield});
 
             requestAnimationFrame(loop);
         };
@@ -51,6 +51,7 @@ _li.define(
                         _shield[newShield].render();
                     }
                     activeShield = newShield;
+					points.call({reset: false, color: activeShield});
                 }
             });
             checkWeapons();
