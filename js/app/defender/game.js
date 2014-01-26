@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, shield, weapon) {
+    function (renderer, planet, player, enemies, camera, shield, weapon, points) {
         'use strict';
 
         var init,
@@ -29,6 +29,7 @@ _li.define(
             _shield = shield.call();
             _shield[activeShield].render();
             createEnemies();
+			points.call(true);
 
             requestAnimationFrame(loop);
         };
@@ -80,6 +81,7 @@ _li.define(
         'defender.game.enemies',
         'defender.game.camera',
         'defender.game.shield',
-        'defender.game.weapon'
+        'defender.game.weapon',
+		'defender.game.points'
     ]
 );

@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game.enemies',
-    function (texture, camera, finish) {
+    function (texture, camera, finish, points) {
         'use strict';
         var init,
             actions,
@@ -65,6 +65,7 @@ _li.define(
                     if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -this.height * 1.5) {
                         planet.parent.removeChild(bullet);
                         planet.parent.removeChild(this);
+						points.call();
                         _enemies.splice(index, 1);
                         weapons.splice(bIndex, 1);
                         for (var i = 0; i < Math.floor(multiplier); i += 1) {
@@ -99,6 +100,7 @@ _li.define(
     [
         'defender.renderer.texture',
         'defender.game.camera',
-        'defender.finish'
+        'defender.finish',
+		'defender.game.points'
     ]
 );
