@@ -15,6 +15,8 @@ _li.define(
 				points = 0;
 				_renderer = renderer.call();
 				text = new PIXI.Text('Points: ' + points, {font: "40px Arial", fill: "#FFFFFF"});
+				text.position.x = 20;
+				text.position.y = 20;
 				_renderer.stage.addChild(text);
 			} else {
 				points++;
