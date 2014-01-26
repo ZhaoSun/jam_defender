@@ -42,7 +42,9 @@ _li.define(
 
                     if (data.type === 'bomb') {
                         enemy.skeleton.setSkinByName('bomb');
-                    } else {
+                    } else if (data.type === 'shield') {
+						enemy.skeleton.setSkinByName('shield');
+					} else {
                         enemy.skeleton.setSkinByName('enemy');
                     }
                     enemy.skeleton.setSlotsToSetupPose();
@@ -109,7 +111,11 @@ _li.define(
                             });
 
                             number += 2;
-                        } else {
+                        } else if (this.type === 'shield') {
+							if (activeShield > 0) {
+								activeShield--;
+							}
+						} else {
                             currentHits += 1;
                         }
 
@@ -124,6 +130,11 @@ _li.define(
                         } else {
                             type = 'default';
                         }
+						if (type === 'default') {
+							if ((Math.floor(Math.random()*(10)) % 3) === 0) {
+								type = 'shield';
+							}
+						}
                         for (var i = 0; i < number; i += 1) {
                             if (i > 0) {
                                 type = 'default';

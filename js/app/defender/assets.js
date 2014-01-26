@@ -12,6 +12,7 @@ _li.define(
             // rocks
             'assets/images/rock.png',
             'assets/images/bomb.png',
+			'assets/images/shield.png',
 
             'assets/spine/rock/skeleton.atlas',
             'assets/spine/rock/skeleton.json',
