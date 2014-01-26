@@ -15,11 +15,11 @@ _li.define(
             _camera = camera.call();
 
             if (action === 'walkLeft') {
-                _camera.velocity = 0.03;
+                _camera.velocity = 0.02;
                 _player.walkLeft();
             }
             if (action === 'walkRight') {
-                _camera.velocity = -0.03;
+                _camera.velocity = -0.02;
                 _player.walkRight();
             }
             if (action === 'clearAnimation') {

@@ -68,6 +68,14 @@ _li.define(
             this.position.x -= this.velocity * Math.sin(this.rotation);
             this.velocity *= 1.008 - (0.003 * this.rotation) / Math.PI;
 
+
+            if (weapons.length > 10) {
+                var removed = weapons.splice(0, weapons.length - 10);
+                removed.forEach(function (removedItem) {
+                    planet.parent.removeChild(removedItem);
+                });
+            }
+
             weapons.forEach(function (bullet, bIndex) {
                 var bulletRotation = Math.sin(bullet.rotation),
                     enemyRotation = Math.sin(this.rotation),
@@ -81,7 +89,7 @@ _li.define(
 
                         planet.parent.removeChild(bullet);
                         planet.parent.removeChild(this);
-						points.call();
+                        points.call();
                         _enemies.splice(index, 1);
                         weapons.splice(bIndex, 1);
 
@@ -158,6 +166,6 @@ _li.define(
         'defender.renderer.texture',
         'defender.game.camera',
         'defender.finish',
-		'defender.game.points'
+        'defender.game.points'
     ]
 );

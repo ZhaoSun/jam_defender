@@ -18,7 +18,7 @@ _li.define(
             _renderer,
             _weapons = [],
             checkWeapons,
-            weaponVelocity = 15;
+            weaponVelocity = 12;
 
         init = function () {
             _planet = planet.call();
