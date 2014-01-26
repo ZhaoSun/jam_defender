@@ -15,7 +15,7 @@ _li.define(
 
             window.setInterval(function () {
                 weapon.call();
-            }, 300);
+            }, 350);
 
             window.addEventListener('touchstart', function (e) {
                 touchPositionX = e.touches[0].clientX;

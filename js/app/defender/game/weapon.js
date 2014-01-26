@@ -21,7 +21,8 @@ _li.define(
 
         init = function (getWeapons) {
             var weapon,
-                _camera = camera.call();
+                _camera = camera.call(),
+                _player = player.call();
 
             if (getWeapons) {
                 return _weapons;
@@ -31,7 +32,9 @@ _li.define(
                 weapon = texture.call(options);
                 weapon.fire = fire.bind(weapon);
                 _weapons.push(weapon);
-                player.call().state.setAnimationByName('fire', false);
+                if (_player.state.current.name !== 'move') {
+                    _player.state.setAnimationByName('fire', false);
+                }
                 return false;
             }
 
