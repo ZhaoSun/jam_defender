@@ -2,22 +2,26 @@
 
 _li.define(
     'defender.intro',
-    function (keyboard, touch) {
+    function (keyboard, touch, intro, renderer) {
         'use strict';
 
-        var init;
+        var init,
+            loaded = false,
+            _renderer,
+            _intro;
 
         init = function (hideIntro) {
-            keyboard.call();
-            touch.call();
+            if (!loaded) {
+                keyboard.call();
+                touch.call();
+            }
 
             if (hideIntro) {
-                //hide logo
-                console.log('hide intro');
+                _intro.parent.removeChild(_intro);
             } else {
-                //show image with logo and start menu
-                
-                console.log('press enter to start game');
+                _renderer = renderer.call();
+                _intro = intro.call();
+                _renderer.renderer.render(_renderer.stage);
             }
         };
 
@@ -25,6 +29,8 @@ _li.define(
     },
     [
         'defender.input.keyboard',
-        'defender.input.touch'
+        'defender.input.touch',
+        'defender.game.intro',
+        'defender.renderer'
     ]
 );

@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, shield, weapon, points, space, spaceCloser, spaceYeah) {
+    function (renderer, planet, player, enemies, camera, shield, weapon, points, space, spaceCloser, spaceYeah, intro) {
         'use strict';
 
         var init,
@@ -24,6 +24,7 @@ _li.define(
             weaponVelocity = 12;
 
         init = function () {
+            intro.call(true);
             _space = space.call();
             _spaceCloser = spaceCloser.call();
             _spaceYeah = spaceYeah.call();
@@ -94,6 +95,7 @@ _li.define(
         'defender.game.points',
         'defender.game.space',
         'defender.game.spaceCloser',
-        'defender.game.spaceYeah'
+        'defender.game.spaceYeah',
+        'defender.intro'
     ]
 );

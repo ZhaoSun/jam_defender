@@ -18,6 +18,7 @@ _li.define(
 
             // planet
             'assets/images/planet.png',
+            'assets/images/intro.png',
 
             // bullet
             'assets/images/bullet.png',
