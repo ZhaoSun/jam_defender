@@ -12,8 +12,11 @@ _li.define(
 
         init = function (hideIntro) {
             if (!loaded) {
-                keyboard.call();
-                touch.call();
+if ('ontouchstart' in window) {
+    touch.call();
+} else {
+    keyboard.call();
+}
             }
 
             if (hideIntro) {
