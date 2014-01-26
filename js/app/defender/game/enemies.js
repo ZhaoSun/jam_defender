@@ -74,8 +74,8 @@ _li.define(
             this.velocity *= 1.008 - (0.003 * this.rotation) / Math.PI;
 
 
-            if (weapons.length > 5) {
-                var removed = weapons.splice(0, weapons.length - 5);
+            if (weapons.length > 15) {
+                var removed = weapons.splice(0, weapons.length - 15);
                 removed.forEach(function (removedItem) {
                     planet.parent.removeChild(removedItem);
                 });

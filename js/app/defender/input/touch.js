@@ -7,47 +7,38 @@ _li.define(
 
         var init,
             _animating,
-            date = +new Date(),
             touchStart,
-            timeout,
-            touchPosition,
-            lastFire = 0;
+            touchPositionX,
+            touchPositionY,
+            gameStarted = false;
+
 
         init = function () {
-            var gameStarted = false;
 
             window.addEventListener('touchstart', function (e) {
                 touchStart = +new Date();
-                touchPosition = e.touches[0].clientX;
-                if (gameStarted) {
-                    if (+new Date() - touchStart < 100) {
-                        if (date > lastFire + 750) {
-                            lastFire = date;
-                            weapon.call();
-                        }
-                        date = +new Date();
-                    }
-                    if (touchPosition < window.innerWidth / 2) {
-                        timeout = window.setTimeout(function () {
-                            if (!_animating) {
-                                input.call('walkLeft');
-                                _animating = true;
-                            }
-                        }, 100);
-                    } else {
-                        timeout = window.setTimeout(function () {
-                            if (!_animating) {
-                                input.call('walkRight');
-                                _animating = true;
-                            }
-                        }, 100);
-                    }
-                }
+
+
                 e.preventDefault();
 
             });
 
             window.addEventListener('touchmove', function (e) {
+                touchPositionX = e.touches[0].clientX;
+                if (gameStarted) {
+
+                    if (touchPositionX < window.innerWidth / 2) {
+                        if (!_animating) {
+                            input.call('walkLeft');
+                            _animating = true;
+                        }
+                    } else {
+                        if (!_animating) {
+                            input.call('walkRight');
+                            _animating = true;
+                        }
+                    }
+                }
                 e.preventDefault();
             });
 
@@ -56,10 +47,12 @@ _li.define(
                     game.call();
                     gameStarted = true;
                 } else {
-                    lastFire = 0;
+                    if (+new Date() - touchStart < 200) {
+                        weapon.call();
+                    }
+
                     _animating = false;
                     input.call('clearAnimation');
-                    window.clearTimeout(timeout);
                 }
                 e.preventDefault();
 
