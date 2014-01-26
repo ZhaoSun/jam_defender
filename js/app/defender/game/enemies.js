@@ -74,8 +74,8 @@ _li.define(
             this.velocity *= 1.008 - (0.003 * this.rotation) / Math.PI;
 
 
-            if (weapons.length > 10) {
-                var removed = weapons.splice(0, weapons.length - 10);
+            if (weapons.length > 5) {
+                var removed = weapons.splice(0, weapons.length - 5);
                 removed.forEach(function (removedItem) {
                     planet.parent.removeChild(removedItem);
                 });
@@ -93,61 +93,67 @@ _li.define(
                 var bulletRotation = Math.sin(bullet.rotation),
                     enemyRotation = Math.sin(this.rotation),
                     number = 1;
+
+
                 if ((bulletRotation > enemyRotation - 0.05 && bulletRotation < enemyRotation + 0.05) || (bulletRotation < enemyRotation + 0.05 && bulletRotation > enemyRotation - 0.05)) {
                     var bulletDistance = Math.abs(Math.sqrt(bullet.position.y * bullet.position.y + bullet.position.x * bullet.position.x)),
                         enemyDistance = this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x),
                         bulletDistanceFromCenter = bulletDistance + planet.radius + bullet.height;
-
-                    if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -(bullet.height) * 1.5 && this.state.current.name !== 'destroy') {
-
-                        planet.parent.removeChild(bullet);
-                        this.state.setAnimationByName('destroy', false);
-                        points.call({reset: false, color: activeShield, points: true});
+                    if (bulletDistance > window.innerHeight) {
                         weapons.splice(bIndex, 1);
+                        planet.parent.removeChild(bullet);
+                    } else {
+                        if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -(bullet.height) * 1.5 && this.state.current.name !== 'destroy') {
 
-                        if (this.type === 'bomb') {
-                            _enemies.forEach(function (enemy, index) {
-                                enemy.state.setAnimationByName('destroy', false);
-                            });
+                            planet.parent.removeChild(bullet);
+                            this.state.setAnimationByName('destroy', false);
+                            points.call({reset: false, color: activeShield, points: true});
+                            weapons.splice(bIndex, 1);
 
-                            number += 2;
-                        } else if (this.type === 'shield') {
-                            if (activeShield > 0) {
-                                activeShield--;
+                            if (this.type === 'bomb') {
+                                _enemies.forEach(function (enemy, index) {
+                                    enemy.state.setAnimationByName('destroy', false);
+                                });
+
+                                number += 2;
+                            } else if (this.type === 'shield') {
+                                if (activeShield > 0) {
+                                    activeShield--;
+                                }
+                            } else {
+                                currentHits += 1;
                             }
-                        } else {
-                            currentHits += 1;
-                        }
 
-                        if (currentHits === Math.ceil(hitsToScale)) {
-                            currentHits = 0;
-                            hitsToScale -= -0.5;
-                            number += 1;
-                        }
-
-                        if (this.type !== 'bomb' && Math.random() - 0.3 * multiplier / 20 > 0.6 && activeShield) {
-                            type = 'bomb';
-                        } else {
-                            type = 'default';
-                        }
-                        if (type === 'default') {
-                            if (Math.random() - 0.3 * multiplier / 20 > 0.8 && activeShield) {
-                                type = 'shield';
+                            if (currentHits === Math.ceil(hitsToScale)) {
+                                currentHits = 0;
+                                hitsToScale -= -0.5;
+                                number += 1;
                             }
-                        }
-                        for (var i = 0; i < number; i += 1) {
-                            if (i > 0) {
+
+                            if (this.type !== 'bomb' && Math.random() - 0.3 * multiplier / 20 > 0.6 && activeShield) {
+                                type = 'bomb';
+                            } else {
                                 type = 'default';
                             }
-                            self.call({
-                                number: 1,
-                                action: 'add',
-                                distance: window.innerHeight / 2 + 200,
-                                rotation: Math.random() * ((Math.PI / 16) * multiplier) - ((Math.PI / 16) * multiplier / 2),
-                                type: type
-                            });
+                            if (type === 'default') {
+                                if (Math.random() - 0.3 * multiplier / 20 > 0.8 && activeShield) {
+                                    type = 'shield';
+                                }
+                            }
+                            for (var i = 0; i < number; i += 1) {
+                                if (i > 0) {
+                                    type = 'default';
+                                }
+                                self.call({
+                                    number: 1,
+                                    action: 'add',
+                                    distance: window.innerHeight / 2 + 200,
+                                    rotation: Math.random() * ((Math.PI / 16) * multiplier) - ((Math.PI / 16) * multiplier / 2),
+                                    type: type
+                                });
+                            }
+                            multiplier += 0.1;
                         }
-                        multiplier += 0.1;
                     }
                 }
             }.bind(this));
