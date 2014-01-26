@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game.weapon',
-    function (texture, camera) {
+    function (texture, camera, player) {
         'use strict';
 
         var init,
@@ -31,6 +31,7 @@ _li.define(
                 weapon = texture.call(options);
                 weapon.fire = fire.bind(weapon);
                 _weapons.push(weapon);
+                player.call().state.setAnimationByName('fire', false);
                 return false;
             }
 
@@ -45,6 +46,7 @@ _li.define(
     },
     [
         'defender.renderer.texture',
-        'defender.game.camera'
+        'defender.game.camera',
+        'defender.game.player'
     ]
 );

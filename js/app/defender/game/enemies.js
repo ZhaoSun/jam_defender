@@ -43,8 +43,8 @@ _li.define(
                     if (data.type === 'bomb') {
                         enemy.skeleton.setSkinByName('bomb');
                     } else if (data.type === 'shield') {
-						enemy.skeleton.setSkinByName('shield');
-					} else {
+                        enemy.skeleton.setSkinByName('shield');
+                    } else {
                         enemy.skeleton.setSkinByName('enemy');
                     }
                     enemy.skeleton.setSlotsToSetupPose();
@@ -112,10 +112,10 @@ _li.define(
 
                             number += 2;
                         } else if (this.type === 'shield') {
-							if (activeShield > 0) {
-								activeShield--;
-							}
-						} else {
+                            if (activeShield > 0) {
+                                activeShield--;
+                            }
+                        } else {
                             currentHits += 1;
                         }
 
@@ -125,16 +125,16 @@ _li.define(
                             number += 1;
                         }
 
-                        if (this.type !== 'bomb' && Math.random() - 0.3 * multiplier / 20 > 0.6) {
+                        if (this.type !== 'bomb' && Math.random() - 0.3 * multiplier / 20 > 0.6 && activeShield) {
                             type = 'bomb';
                         } else {
                             type = 'default';
                         }
-						if (type === 'default') {
-							if ((Math.floor(Math.random()*(10)) % 3) === 0) {
-								type = 'shield';
-							}
-						}
+                        if (type === 'default') {
+                            if (Math.random() - 0.3 * multiplier / 20 > 0.8 && activeShield) {
+                                type = 'shield';
+                            }
+                        }
                         for (var i = 0; i < number; i += 1) {
                             if (i > 0) {
                                 type = 'default';
@@ -158,13 +158,19 @@ _li.define(
                 }
 
                 if (this.parent) {
+                    var rebuildShield = (Math.random() - 0.5 * multiplier / 10) > 0.75,
+                        afterCollisionType = 'bomb';
+
+                    if (rebuildShield) {
+                        afterCollisionType = 'shield';
+                    }
                     this.state.setAnimationByName('destroy', false);
                     self.call({
                         number: 1,
                         action: 'add',
                         distance: window.innerHeight / 2 + 200,
                         rotation: Math.random() * ((Math.PI / 16) * multiplier) - ((Math.PI / 16) * multiplier / 2),
-                        type: 'bomb'
+                        type: afterCollisionType
                     });
                 }
 

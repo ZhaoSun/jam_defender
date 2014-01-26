@@ -19,6 +19,14 @@ _li.define(
             animation: function () {
                 this.stateData.setMixByName('idle', 'move', 0.2);
                 this.stateData.setMixByName('move', 'idle', 0.4);
+                this.stateData.setMixByName('fire', 'idle', 0.4);
+                this.stateData.setMixByName('idle', 'fire', 0.2);
+                this.stateData.setMixByName('fire', 'move', 0.2);
+                this.stateData.setMixByName('move', 'fire', 0.4);
+            },
+            scale: {
+                x: 1,
+                y: 1
             }
         };
 
