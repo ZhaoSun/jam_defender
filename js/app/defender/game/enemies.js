@@ -158,8 +158,7 @@ _li.define(
                 }
 
                 if (this.parent) {
-                    planet.parent.removeChild(this);
-                    _enemies.splice(index, 1);
+                    this.state.setAnimationByName('destroy', false);
                     self.call({
                         number: 1,
                         action: 'add',

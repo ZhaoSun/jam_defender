@@ -29,10 +29,10 @@ _li.define(
             // bullet
             'assets/images/bullet.png',
 
-            // spineboy
-            'assets/spine/spineboy/spineboy.atlas',
-            'assets/spine/spineboy/spineboy.json',
-            'assets/spine/spineboy/spineboy.png'
+            // ra
+            'assets/spine/ra/skeleton.atlas',
+            'assets/spine/ra/skeleton.json',
+            'assets/spine/ra/skeleton.png'
         ];
 
         init = function () {

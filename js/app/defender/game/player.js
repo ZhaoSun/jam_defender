@@ -13,16 +13,12 @@ _li.define(
             clearAnimation;
 
         options = {
-            asset: 'assets/spine/spineboy/spineboy.json',
+            asset: 'assets/spine/ra/skeleton.json',
             x: window.innerWidth / 2,
-            y: window.innerHeight - 150,
+            y: window.innerHeight - 200,
             animation: function () {
-                this.stateData.setMixByName('walk', 'jump', 0.2);
-                this.stateData.setMixByName('jump', 'walk', 0.4);
-            },
-            scale: {
-                x: 0.2,
-                y: 0.2
+                this.stateData.setMixByName('idle', 'move', 0.2);
+                this.stateData.setMixByName('move', 'idle', 0.4);
             }
         };
 
@@ -37,17 +33,17 @@ _li.define(
         };
 
         walkLeft = function () {
-            this.scale.x = -0.2;
-            this.state.setAnimationByName('walk', true);
+            this.scale.x = 1;
+            this.state.setAnimationByName('move', true);
         };
 
         walkRight = function () {
-            this.scale.x = 0.2;
-            this.state.setAnimationByName('walk', true);
+            this.scale.x = -1;
+            this.state.setAnimationByName('move', true);
         };
 
         clearAnimation = function () {
-            this.state.clearAnimation();
+            this.state.setAnimationByName('idle', true);
         };
 
         this.on(init);
