@@ -13,6 +13,10 @@ _li.define(
             'assets/images/rock.png',
             'assets/images/bomb.png',
 
+            'assets/spine/rock/skeleton.atlas',
+            'assets/spine/rock/skeleton.json',
+            'assets/spine/rock/skeleton.png',
+
             // stars
             'assets/images/stars.png',
 

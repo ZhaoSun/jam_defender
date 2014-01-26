@@ -25,6 +25,14 @@ _li.define(
             spine.position.x = options.x;
             spine.position.y = options.y;
 
+            if (options.relative) {
+
+                spine.radius = options.radius;
+                spine.position.x = 0;
+                spine.pivot.y = options.radius + options.x;
+                spine.rotation = options.rotation;
+            }
+
             if (options.animation) {
                 options.animation.bind(spine)();
             }

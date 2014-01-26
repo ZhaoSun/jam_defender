@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game.enemies',
-    function (texture, camera, finish, points) {
+    function (spine, camera, finish, points) {
         'use strict';
         var init,
             actions,
@@ -14,7 +14,7 @@ _li.define(
             currentHits = 0,
             options = {
                 y: 0,
-                asset: 'assets/images/rock.png',
+                asset: 'assets/spine/rock/skeleton.json',
                 relative: true,
                 radius: 400,
                 type: 'default'
@@ -35,19 +35,22 @@ _li.define(
                 var number = data.number,
                     i = 0;
 
-                if (data.type === 'bomb') {
-                    options.asset = 'assets/images/bomb.png';
-                } else {
-                    options.asset = 'assets/images/rock.png';
-
-                }
 
                 for (i; i < number; i += 1) {
-                    var enemy = texture.call(options);
+                    var enemy = spine.call(options);
+
+
+                    if (data.type === 'bomb') {
+                        enemy.skeleton.setSkinByName('bomb');
+                    } else {
+                        enemy.skeleton.setSkinByName('enemy');
+                    }
+                    enemy.skeleton.setSlotsToSetupPose();
 
                     enemy.type = data.type;
                     enemy.fall = fall.bind(enemy);
                     enemy.velocity = 0.5;
+                    enemy.state.setAnimationByName('animation', true);
                     _enemies.push(enemy);
                 }
             }
@@ -76,33 +79,34 @@ _li.define(
                 });
             }
 
+
+            _enemies.forEach(function (enemy, index) {
+                if (enemy.state.isComplete() && !enemy.state.currentLoop) {
+                    planet.parent.removeChild(enemy);
+                    _enemies.splice(index, 1);
+                }
+            });
+
             weapons.forEach(function (bullet, bIndex) {
                 var bulletRotation = Math.sin(bullet.rotation),
                     enemyRotation = Math.sin(this.rotation),
                     number = 1;
-
                 if ((bulletRotation > enemyRotation - 0.05 && bulletRotation < enemyRotation + 0.05) || (bulletRotation < enemyRotation + 0.05 && bulletRotation > enemyRotation - 0.05)) {
                     var bulletDistance = Math.abs(Math.sqrt(bullet.position.y * bullet.position.y + bullet.position.x * bullet.position.x)),
                         enemyDistance = this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x),
-                        bulletDistanceFromCenter = bulletDistance + planet.radius + this.height;
-                    if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -this.height * 1.5) {
+                        bulletDistanceFromCenter = bulletDistance + planet.radius + bullet.height;
+
+                    if (bulletDistanceFromCenter - enemyDistance < 0 && bulletDistanceFromCenter - enemyDistance > -(bullet.height) * 1.5 && this.state.current.name !== 'destroy') {
 
                         planet.parent.removeChild(bullet);
-                        planet.parent.removeChild(this);
+                        this.state.setAnimationByName('destroy', false);
                         points.call({reset: false, color: activeShield, points: true});
-                        _enemies.splice(index, 1);
                         weapons.splice(bIndex, 1);
 
                         if (this.type === 'bomb') {
                             _enemies.forEach(function (enemy, index) {
-                                planet.parent.removeChild(enemy);
-                                _enemies.splice(index, 1);
+                                enemy.state.setAnimationByName('destroy', false);
                             });
-                            _enemies.forEach(function (enemy, index) {
-                                planet.parent.removeChild(enemy);
-                                _enemies.splice(index, 1);
-                            });
-
 
                             number += 2;
                         } else {
@@ -137,7 +141,7 @@ _li.define(
                 }
             }.bind(this));
 
-            if (this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) < radius + this.height / 2) {
+            if (this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) < radius + 30 && this.state.current.name !== 'destroy') {
                 if (gameOver) {
                     finish.call();
                 }
@@ -163,7 +167,7 @@ _li.define(
         this.on(init);
     },
     [
-        'defender.renderer.texture',
+        'defender.renderer.spine',
         'defender.game.camera',
         'defender.finish',
         'defender.game.points'
