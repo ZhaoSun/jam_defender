@@ -17,11 +17,12 @@ var ejecta = ejecta || null,
         'defender.game.space',
         'defender.game.camera',
         'defender.game.shield',
-		'defender.game.points',
+        'defender.game.points',
         'defender.input',
-		'defender.input.keyboard',
-		'defender.intro',
-		'defender.finish'
+        'defender.input.keyboard',
+        'defender.input.touch',
+        'defender.intro',
+        'defender.finish'
     ],
     init = {
         event: 'defender'
