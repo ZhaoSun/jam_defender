@@ -10,7 +10,7 @@ _li.define(
 			_renderer,
 			text,
 			style,
-			colors = ['#EEFFEC', '#FFFECB', '#FFECEC', '#D84933'];
+			colors = ['#EEFFEC', '#FFFECB', '#FFECEC', '#D84933', '#920000'];
 
 		init = function (options) {
 			if (options.reset) {
@@ -24,16 +24,20 @@ _li.define(
 				if (options.points) {
 					points++;
 				}
+				if (options.positionX && options.positionY) {
+					text.position.x = options.positionX - text.width/2;
+					text.position.y = options.positionY;
+				}
 				text.setText('Points: ' + points);
 				style = {font: "40px Arial", fill: colors[options.color]};
 				text.setStyle(style);
+				return text;
 			}
 		};
 
 		this.on(init);
 	},
 	[
-		'defender.renderer',
-		'defender.'
+		'defender.renderer'
 	]
 );

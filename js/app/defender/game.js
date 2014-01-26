@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, shield, weapon, points, space, spaceCloser, spaceYeah, intro) {
+    function (renderer, planet, player, enemies, camera, shield, weapon, points, space, spaceCloser, spaceYeah, intro, finish) {
         'use strict';
 
         var init,
@@ -41,26 +41,28 @@ _li.define(
         };
 
         loop = function () {
-            requestAnimationFrame(loop);
-            _enemies.forEach(function (enemy, i) {
-                newShield = enemy.fall(_planet, _shield, activeShield, _weapons, i);
-                if (newShield !== activeShield) {
-                    if (_shield[activeShield]) {
-                        _shield[activeShield].parent.removeChild(_shield[activeShield]);
-                    }
-                    if (_shield[newShield]) {
-                        _shield[newShield].render();
-                    }
-                    activeShield = newShield;
-					points.call({reset: false, color: activeShield});
-                }
-            });
-            checkWeapons();
-            _spaceYeah.rotation += -_camera.velocity * 0.65;
-            _spaceCloser.rotation += -_camera.velocity * 0.85;
-            _space.rotation += -_camera.velocity * 0.95;
-            _camera.rotation += _camera.velocity;
-            _renderer.renderer.render(_renderer.stage);
+			if (!finish.call(false)) {
+				requestAnimationFrame(loop);
+				_enemies.forEach(function (enemy, i) {
+					newShield = enemy.fall(_planet, _shield, activeShield, _weapons, i);
+					if (newShield !== activeShield) {
+						if (_shield[activeShield]) {
+							_shield[activeShield].parent.removeChild(_shield[activeShield]);
+						}
+						if (_shield[newShield]) {
+							_shield[newShield].render();
+						}
+						activeShield = newShield;
+						points.call({reset: false, color: activeShield});
+					}
+				});
+				checkWeapons();
+				_spaceYeah.rotation += -_camera.velocity * 0.65;
+				_spaceCloser.rotation += -_camera.velocity * 0.85;
+				_space.rotation += -_camera.velocity * 0.95;
+				_camera.rotation += _camera.velocity;
+				_renderer.renderer.render(_renderer.stage);
+			}
         };
 
         checkWeapons = function () {
@@ -96,6 +98,7 @@ _li.define(
         'defender.game.space',
         'defender.game.spaceCloser',
         'defender.game.spaceYeah',
-        'defender.intro'
+        'defender.intro',
+		'defender.finish'
     ]
 );

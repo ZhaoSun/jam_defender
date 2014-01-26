@@ -143,7 +143,7 @@ _li.define(
 
             if (this.pivot.y - Math.sqrt(this.position.y * this.position.y + this.position.x * this.position.x) < radius + 30 && this.state.current.name !== 'destroy') {
                 if (gameOver) {
-                    finish.call();
+                    finish.call(true);
                 }
 
                 if (this.parent) {

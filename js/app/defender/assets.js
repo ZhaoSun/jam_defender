@@ -23,6 +23,7 @@ _li.define(
             // planet
             'assets/images/planet.png',
             'assets/images/intro.png',
+			'assets/images/gameover.png',
 
             // bullet
             'assets/images/bullet.png',
