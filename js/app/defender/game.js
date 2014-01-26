@@ -2,7 +2,7 @@
 
 _li.define(
     'defender.game',
-    function (renderer, planet, player, enemies, camera, shield, weapon, points) {
+    function (renderer, planet, player, enemies, camera, shield, weapon, points, space, spaceCloser, spaceYeah) {
         'use strict';
 
         var init,
@@ -14,6 +14,9 @@ _li.define(
             _camera,
             _planet,
             _player,
+            _space,
+            _spaceCloser,
+            _spaceYeah,
             _enemies = [],
             _renderer,
             _weapons = [],
@@ -21,6 +24,9 @@ _li.define(
             weaponVelocity = 12;
 
         init = function () {
+            _space = space.call();
+            _spaceCloser = spaceCloser.call();
+            _spaceYeah = spaceYeah.call();
             _planet = planet.call();
             _renderer = renderer.call();
             _camera = camera.call();
@@ -28,7 +34,7 @@ _li.define(
             _shield = shield.call();
             _shield[activeShield].render();
             createEnemies();
-			points.call(true);
+            points.call(true);
 
             requestAnimationFrame(loop);
         };
@@ -48,7 +54,9 @@ _li.define(
                 }
             });
             checkWeapons();
-
+            _spaceYeah.rotation += -_camera.velocity * 0.65;
+            _spaceCloser.rotation += -_camera.velocity * 0.85;
+            _space.rotation += -_camera.velocity * 0.95;
             _camera.rotation += _camera.velocity;
             _renderer.renderer.render(_renderer.stage);
         };
@@ -82,6 +90,9 @@ _li.define(
         'defender.game.camera',
         'defender.game.shield',
         'defender.game.weapon',
-		'defender.game.points'
+        'defender.game.points',
+        'defender.game.space',
+        'defender.game.spaceCloser',
+        'defender.game.spaceYeah'
     ]
 );

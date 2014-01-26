@@ -13,11 +13,14 @@ _li.define(
             'assets/images/rock.png',
             'assets/images/bomb.png',
 
+            // stars
+            'assets/images/stars.png',
+
             // planet
             'assets/images/planet.png',
 
-			// bullet
-			'assets/images/bullet.png',
+            // bullet
+            'assets/images/bullet.png',
 
             // spineboy
             'assets/spine/spineboy/spineboy.atlas',

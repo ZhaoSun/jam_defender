@@ -14,6 +14,7 @@ _li.define(
                 container: camera.call(),
                 x: 0,
                 y: 0,
+                at: 0,
                 asset: 'assets/images/planet.png'
             };
 

@@ -16,6 +16,7 @@ _li.define(
                 console.log('hide intro');
             } else {
                 //show image with logo and start menu
+                
                 console.log('press enter to start game');
             }
         };

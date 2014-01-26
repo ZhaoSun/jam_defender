@@ -1,7 +1,7 @@
 /*global _li*/
 
 _li.define(
-    'defender.game.space',
+    'defender.game.spaceYeah',
     function (camera, texture) {
         'use strict';
 
@@ -14,7 +14,7 @@ _li.define(
                 x: 0,
                 rotation: 0,
                 container: camera.call(),
-                asset: 'assets/images/stars.png'
+                asset: 'assets/images/starsYeah.png'
             };
 
             if (!space) {
