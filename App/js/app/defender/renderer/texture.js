@@ -22,13 +22,18 @@ _li.define(
 
             if (options.relative) {
                 sprite.position.x = 0;
-                sprite.pivot.y = options.radius + options.x;
+                sprite.pivot.y = options.radius + options.x ;
             }
 
-			sprite.rotation = options.rotation;
+            if (options.scale) {
+                sprite.scale.x = options.scale.x;
+                sprite.scale.y = options.scale.y;
+            }
+
+            sprite.rotation = options.rotation;
 
 
-			if (!options.disabled) {
+            if (!options.disabled) {
                 addToCanvas.call(
                     {
                         object: sprite,

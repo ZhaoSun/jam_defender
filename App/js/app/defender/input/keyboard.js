@@ -26,7 +26,6 @@ _li.define(
                             lastFire = date;
                             weapon.call();
                         }
-                        date = +new Date();
                     }
 
                     if (key === 37) {

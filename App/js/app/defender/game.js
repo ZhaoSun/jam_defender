@@ -36,13 +36,11 @@ _li.define(
             _shield[activeShield].render();
             createEnemies();
             points.call({reset: true, color: activeShield});
-
             requestAnimationFrame(loop);
         };
 
         loop = function () {
             if (!finish.call(false)) {
-                requestAnimationFrame(loop);
                 if (_player.state.isComplete() && !_player.state.currentLoop) {
                     _player.state.setAnimationByName('idle');
                 }
@@ -65,6 +63,7 @@ _li.define(
                 _space.rotation += -_camera.velocity * 0.95;
                 _camera.rotation += _camera.velocity;
                 _renderer.renderer.render(_renderer.stage);
+                requestAnimationFrame(loop);
             }
         };
 

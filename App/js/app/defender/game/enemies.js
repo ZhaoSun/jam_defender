@@ -107,18 +107,20 @@ _li.define(
 
                             planet.parent.removeChild(bullet);
                             this.state.setAnimationByName('destroy', false);
-                            points.call({reset: false, color: activeShield, points: true});
+                            points.call({reset: false, color: activeShield, points: Math.round(1 * multiplier * Math.random() + 1)});
                             weapons.splice(bIndex, 1);
 
                             if (this.type === 'bomb') {
                                 _enemies.forEach(function (enemy, index) {
+                                    points.call({reset: false, color: activeShield, points: Math.round((1 + index / 2) * multiplier * Math.random() + 1)});
                                     enemy.state.setAnimationByName('destroy', false);
                                 });
 
                                 number += 2;
                             } else if (this.type === 'shield') {
                                 if (activeShield > 0) {
-                                    activeShield--;
+                                    points.call({reset: false, color: activeShield, negative: Math.round(5 * activeShield * multiplier)});
+                                    activeShield -= 1;
                                 }
                             } else {
                                 currentHits += 1;

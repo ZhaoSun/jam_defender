@@ -2353,9 +2353,20 @@
         // cached version...
         var result = PIXI.Text.heightCache[fontStyle];
 
-        if(!result)
+        if(!result && document && document.createTextNode)
         {
+            var body = document.getElementsByTagName('body')[0];
+            var dummy = document.createElement('div');
+            var dummyText = document.createTextNode('M');
+            dummy.appendChild(dummyText);
+            dummy.setAttribute('style', fontStyle + ';position:absolute;top:0;left:0');
+            body.appendChild(dummy);
 
+            result = dummy.offsetHeight;
+            PIXI.Text.heightCache[fontStyle] = result;
+
+            body.removeChild(dummy);
+        } else {
             PIXI.Text.heightCache[fontStyle] = 40;
 
         }
@@ -3418,10 +3429,10 @@
      */
     PIXI.Stage.prototype.setBackgroundColor = function(backgroundColor)
     {
-        this.backgroundColor = backgroundColor || 0x040622;
+        this.backgroundColor = backgroundColor || 0x000000;
         this.backgroundColorSplit = PIXI.hex2rgb(this.backgroundColor);
         var hex = this.backgroundColor.toString(16);
-        hex = '040622'.substr(0, 6 - hex.length) + hex;
+        hex = '000000'.substr(0, 6 - hex.length) + hex;
         this.backgroundColorString = '#' + hex;
     };
 
