@@ -29,7 +29,7 @@ _li.define(
             'assets/images/starsYeah.png',
 
             // planet
-            'assets/images/planet.png',
+            'assets/images/planet.jpg',
             'assets/images/intro.png',
             'assets/images/gameover.png',
 

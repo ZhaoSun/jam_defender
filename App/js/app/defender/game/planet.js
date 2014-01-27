@@ -15,7 +15,7 @@ _li.define(
                 x: 0,
                 y: 0,
                 at: 0,
-                asset: 'assets/images/planet.png'
+                asset: 'assets/images/planet.jpg'
             };
 
             if (!world) {
