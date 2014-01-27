@@ -1,0 +1,26 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomb
+  rotate: false
+  xy: 2, 2
+  size: 60, 60
+  orig: 130, 130
+  offset: 35, 32
+  index: -1
+rock
+  rotate: false
+  xy: 64, 2
+  size: 60, 60
+  orig: 130, 130
+  offset: 35, 32
+  index: -1
+shield
+  rotate: false
+  xy: 126, 2
+  size: 60, 60
+  orig: 130, 130
+  offset: 35, 32
+  index: -1
