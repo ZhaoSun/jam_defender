@@ -28,7 +28,7 @@ _li.define(
             radius: 400,
             x: 0,
             y: 0,
-            at: 0
+            at: 1
         };
 
         init = function () {
