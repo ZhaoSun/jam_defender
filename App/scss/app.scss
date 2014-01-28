@@ -2,3 +2,6 @@ html, body {
   margin: 0;
   overflow: hidden;
 }
+p {
+position: absolute; top:200px;text-align:center;width:100%;z-index:-1;
+}
